@@ -45,6 +45,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             for (String key : data.keySet()) {
                 if (key.equalsIgnoreCase("mess")) {
+                        System.out.println("mess : " + data.get(key));
                         String[] arrayMessage = data.get(key).split("\n");
                         message = arrayMessage[0];
                         time = arrayMessage[1];
@@ -86,7 +87,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 // Singleton Array list
                 SingletonArrayList singletonArrayList = SingletonArrayList.getInstance();
-                singletonArrayList.arrayList.add(0,new Sound( message, time, R.raw.test));
+                singletonArrayList.arrayList.get(0).setNew(false);
+                singletonArrayList.arrayList.add(0,new Sound( message, time, true));
                 if (singletonArrayList.arrayList.size() > 15) {
                     singletonArrayList.arrayList.remove(singletonArrayList.arrayList.size() - 1);
                 }

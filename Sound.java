@@ -8,16 +8,31 @@ public class Sound {
     private String name;
     private int sound;
     private String timeStamp;
+    private boolean isNew = false;
 
-    public Sound(String name, String timeStamp) {
+    public Sound(String name, String timeStamp, boolean isNew) {
         this.name = name;
         this.timeStamp = timeStamp;
+        this.isNew = isNew;
+    }
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public void setNew(boolean aNew) {
+        isNew = aNew;
     }
 
     public Sound(String name, String timeStamp, int sound) {
         this.name = name;
         this.timeStamp = timeStamp;
         this.sound = sound;
+    }
+
+    public Sound(String name, String timeStamp) {
+        this.name = name;
+        this.timeStamp = timeStamp;
     }
 
     public String getName() {

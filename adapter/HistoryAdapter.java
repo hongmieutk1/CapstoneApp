@@ -1,6 +1,7 @@
 package com.example.tuankiet.capstoneapp.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,6 +109,13 @@ public class HistoryAdapter extends BaseAdapter {
         final Sound sound = arrayList.get(i);
         viewHolder.soundName.setText(sound.getName());
         viewHolder.timeStamp.setText(sound.getTimeStamp());
+        if (sound.isNew() == true) {
+            viewHolder.soundName.setTextColor(Color.RED);
+            viewHolder.timeStamp.setTextColor(Color.RED);
+        } else {
+            viewHolder.soundName.setTextColor(Color.BLACK);
+            viewHolder.timeStamp.setTextColor(Color.BLACK);
+        }
 
         // Play music
         viewHolder.ivPlay.setOnClickListener(new View.OnClickListener() {
@@ -116,9 +124,9 @@ public class HistoryAdapter extends BaseAdapter {
 
                 //Send Request
                 //String strUrl = "http://192.168.1.26:8000/getSound?time_start=";
-                String baseUrl = "http://172.20.10.3:8000/label/getSound?time_start=";
+                String baseUrl = "http://172.29.192.70:8000/label/getSound?time_start=";
                 String stringUserID = "&user_id=1";
-                //String strUrl = "http://172.29.192.70:8000/label/getSound?time_start=2017-12-21T08:10:01&user_id=1";
+                //String baseUrl = "http://192.168.0.125:8000/label/getSound?time_start=2017-12-21T08:10:01&user_id=1";
 
                 //String date = "2017-12-21 15:10:01+07";
                 String date = sound.getTimeStamp();
@@ -126,28 +134,35 @@ public class HistoryAdapter extends BaseAdapter {
                 //String[] split = dateTest.split(" ");
                 //baseUrl += split[0] + "T" + split[1] + stringUserID;
                 baseUrl += date + stringUserID;
-                out.println("baseURl " + baseUrl );
+                System.out.println("baseURl " + baseUrl );
 
-                try {
-                    // Get data + run Sound in THREAD
-                    //PlayRunnable playRunnable = new PlayRunnable(getContext(), baseUrl);
-                    //Thread thread = new Thread(playRunnable);
-                    //thread.start();
 
-                    float[] data = new HttpRequest().execute(baseUrl).get();
-                    System.out.println("PlayRunnable");
-                    System.out.println(data);
+                // Get data + run Sound in THREAD
+                PlayRunnable playRunnable = new PlayRunnable(getContext(), baseUrl);
+                Thread thread = new Thread(playRunnable);
+                thread.start();
 
-                    if (data != null && data.length >= 1) {
-                        SoundRunnable soundRunnable = new SoundRunnable(data);
-                        Thread thread = new Thread(soundRunnable);
-                        thread.start();
-                    }
+                Toast.makeText(context, "Loading... Please wait !!",Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(context, "Loading... Please wait !!",Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    out.println(e);
-                }
+                //try {
+                //    // Get data + run Sound in THREAD
+                //    //PlayRunnable playRunnable = new PlayRunnable(getContext(), baseUrl);
+                //    //Thread thread = new Thread(playRunnable);
+                //    //thread.start();
+
+                //    float[] data = new HttpRequest().execute(baseUrl).get();
+                //    System.out.println("PlayRunnable");
+
+                //    if (data != null && data.length >= 1) {
+                //        SoundRunnable soundRunnable = new SoundRunnable(data);
+                //        Thread thread = new Thread(soundRunnable);
+                //        thread.start();
+                //    }
+
+                //    Toast.makeText(context, "Loading... Please wait !!",Toast.LENGTH_LONG).show();
+                //} catch (Exception e) {
+                //    out.println(e);
+                //}
             }
         });
 

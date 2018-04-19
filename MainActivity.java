@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             SingletonArrayList.getInstance().historyAdapter.notifyDataSetChanged();
+            startActivity(new Intent(MainActivity.this, Pop.class));
         }
     };
 

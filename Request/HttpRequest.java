@@ -27,23 +27,10 @@ public class HttpRequest extends AsyncTask<String, Void, float[]> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        //progressDialog = new ProgressDialog(this.context);
-        //progressDialog.setCancelable(true);
-        //progressDialog.setMessage("Loading...");
-        //progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        //progressDialog.setProgress(0);
-        //progressDialog.show();
-        //Toast.makeText(context, "Loading... Please wait !!",Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onPostExecute(float[] o) {
-        //Handler handler =  new Handler(Looper.getMainLooper());
-        //handler.post( new Runnable(){
-        //    public void run(){
-        //        Toast.makeText(this, "Created a server socket",Toast.LENGTH_LONG).show();
-        //    }
-        //});
         super.onPostExecute(o);
     }
 
@@ -85,7 +72,6 @@ public class HttpRequest extends AsyncTask<String, Void, float[]> {
             for (int i = 0; i < wave.length(); i++) {
                 try {
                     dataWave[i] = Float.parseFloat(wave.getString(i));
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
